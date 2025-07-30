@@ -23,7 +23,7 @@ function PokemonDetails({ id }) {
     if (pokemon) {
 
         return (
-            <div className={`w-100 p-8 sticky top-0 h-screen shadow-2xl`}>
+            <div className={`w-100 p-8 sticky top-14 h-screen shadow-2xl`}>
                 <div className="flex flex-col gap-8 ">
                     <div>
 

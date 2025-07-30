@@ -139,7 +139,7 @@ export default function Pokemons() {
         <div>
           <button
             onClick={() => setSelectedPokemonID(null)}
-            className="text-white z-10 w-8 fixed top-8 right-8 bg-gray-500 rounded-full p-1 shadow-md hover:bg-gray-400"
+            className="text-white z-10 w-8 fixed top-20 right-8 bg-gray-500 rounded-full p-1 shadow-md hover:bg-gray-400"
           >
             ×
           </button>
