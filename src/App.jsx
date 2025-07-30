@@ -1,7 +1,10 @@
 import "./App.css";
+import Pokemons from "./components/Pokemons.jsx";
 
 function App() {
-  return <h1 className="text-sm">Hey !</h1>;
+  return(
+  <Pokemons/>
+  );
 }
 
 export default App;
