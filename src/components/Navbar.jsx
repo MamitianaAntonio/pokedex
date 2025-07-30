@@ -1,33 +1,10 @@
-import { useState } from "react";
-
 function Navbar() {
-    const [isOpen, setIsOpen] = useState(false);
-
-    return (
-        <nav className="flex justify-between items-center px-[4vw] py-4 relative bg-[#E3350D] text-white shadow-md">
-
-            <h1 className="text-2xl font-bold">PoKédex</h1>
-            <ul className="hidden md:flex gap-6 items-center">
-                <li>
-                    <a href=""className="hover:text-[#FFDE00] transition-colors duration-300">Home</a></li>
-                <li><a href=""className="hover:text-[#FFDE00] transition-colors duration-300">Favorites</a></li>
-                <li><a href=""className="hover:text-[#FFDE00] transition-colors duration-300">About</a></li>
-            </ul>
-            <button
-                className="md:hidden text-3xl text-black hover:text-[#FFDE00] transition-colors duration-300"
-                onClick={() => setIsOpen(!isOpen)}
-                aria-label="Toggle menu">
-                <i className={isOpen ? "fas fa-times" : "fas fa-bars"}></i>
-            </button>
-            {isOpen && (
-                <ul className="absolute top-16 left-0 w-full bg-[#E3350D] shadow-md flex flex-col items-center  gap-4 py-4 md:hidden z-50 text-white">
-                    <li><a href=""className="hover:text-[#FFDE00] transition-colors duration-300 font-bold">Home</a></li>
-                    <li><a href=""className="hover:text-[#FFDE00] transition-colors duration-300 font-bold">Favorites</a></li>
-                    <li> <a href=""className="hover:text-[#FFDE00] transition-colors duration-300 font-bold">About</a></li>
-                </ul>
-            )}
-        </nav>
-    );
+  return (
+    <nav className="flex justify-between items-center px-[4vw] py-2 bg-[#6F35FC] text-white shadow-md sticky top-0 z-1000">
+      <h1 className="text-2xl font-bold">PoKédex</h1>
+      <img src="https://cdn.worldvectorlogo.com/logos/pokemon-23.svg" alt="pokemon logo" className="w-20 h-10" />
+    </nav>
+  );
 }
 
 export default Navbar;

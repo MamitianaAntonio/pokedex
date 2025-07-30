@@ -7,7 +7,7 @@ Developed by the **K2** group from **HEI**.
 
 ## 👨‍💻 Team Members (Group K2 - HEI)
 
-- Mamitiana Antonio RATOLJANAHARY  
+- Mamitiana Antonio RATOLOJANAHARY  
 - Rasolofondrasoa Tsiry
 - Nantenaina Zinedis 
 - Fenohanta Fiononantsoa

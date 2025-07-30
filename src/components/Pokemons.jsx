@@ -62,7 +62,7 @@ export default function Pokemons() {
         placeholder="Rechercher un Pokémon..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="mb-6 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="mb-6 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:border-[#6F35FC] z-1000"
       />
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -71,7 +71,6 @@ export default function Pokemons() {
             key={pokemon.id}
             className="rounded-xl shadow-lg px-4 py-6 cursor-pointer border-b-amber-950 bg-white dark:bg-gray-800 transform transition duration-300 hover:scale-105 hover:shadow-2xl"
           >
-
             <img
               src={pokemon.sprites.other["official-artwork"].front_default}
               alt={pokemon.name}
@@ -86,13 +85,13 @@ export default function Pokemons() {
               {pokemon.types.map((typeSlot) => {
                 const typeName = typeSlot.type.name;
                 const typeIcon = getTypeIcon(typeName);
-                const bgColor = typeColors[typeName] || "#ddd"; 
+                const bgColor = typeColors[typeName];
 
                 return typeIcon ? (
                   <div
                     key={typeName}
                     className="w-8 h-8 flex items-center justify-center rounded-full"
-                    style={{ backgroundColor: bgColor }}
+                    style={{ backgroundColor: bgColor + ' !important' }}
                   >
                     <img
                       src={typeIcon}
