@@ -62,7 +62,7 @@ export default function Pokemons() {
         placeholder="Rechercher un Pokémon..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="mb-6 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:border-[#6F35FC] z-1000"
+        className="mb-6 w-full px-4 py-2 border transition animate-pulse border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:border-[#6F35FC] z-1000"
       />
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -91,7 +91,7 @@ export default function Pokemons() {
                   <div
                     key={typeName}
                     className="w-8 h-8 flex items-center justify-center rounded-full"
-                    style={{ backgroundColor: bgColor + ' !important' }}
+                    style={{ backgroundColor: bgColor}}
                   >
                     <img
                       src={typeIcon}
@@ -103,7 +103,7 @@ export default function Pokemons() {
                 ) : (
                   <span
                     key={typeName}
-                    className="text-xs capitalize bg-gray-200 px-2 rounded"
+                    className="text-xs font-bold capitalize bg-gray-200 p-2 rounded"
                   >
                     {typeName}
                   </span>
