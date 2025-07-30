@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import PokemonDetails from "./PokemonDetail";
+
 
 // Import all icons of types
 const typeIcons = import.meta.glob("../types/*.svg", { eager: true });
 
-const typeColors = {
+
+export const typeColors = {
   normal: "#A8A77A",
   fire: "#EE8130",
   water: "#6390F0",
@@ -37,9 +40,10 @@ function getTypeIcon(typeName) {
 export default function Pokemons() {
   const [pokemons, setPokemons] = useState([]);
   const [search, setSearch] = useState("");
+  const [selectedPokemonID, setSelectedPokemonID] = useState(null);
 
   useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon?limit=200")
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
       .then((res) => res.json())
       .then(async (data) => {
         const results = await Promise.all(
@@ -56,64 +60,96 @@ export default function Pokemons() {
   );
 
   return (
-    <div className="p-4">
-      <input
-        type="text"
-        placeholder="Rechercher un Pokémon..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="mb-6 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-      />
+    <div className="flex flex-col md:flex-row">
+      <div className={`p-4 transition-all duration-1000 ${selectedPokemonID ? "md:w-4/5" : "w-full"}`}>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-        {filteredPokemons.map((pokemon) => (
-          <div
-            key={pokemon.id}
-            className="rounded-xl shadow-lg px-4 py-6 cursor-pointer border-b-amber-950 bg-white dark:bg-gray-800 transform transition duration-300 hover:scale-105 hover:shadow-2xl"
-          >
+        <input
+          type="text"
+          placeholder="Rechercher un Pokémon..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="mb-6 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
 
-            <img
-              src={pokemon.sprites.other["official-artwork"].front_default}
-              alt={pokemon.name}
-              className="w-full h-32 object-contain mb-2"
-            />
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          {filteredPokemons.map((pokemon) => {
 
-            <h2 className="text-xl font-bold capitalize text-center text-gray-800 dark:text-white">
-              {pokemon.name}
-            </h2>
+            const bgColor = typeColors[pokemon.types[0]?.type.name] || "#ddd";
+            console.log(bgColor)
 
-            <div className="flex justify-center items-center mt-2 gap-2">
-              {pokemon.types.map((typeSlot) => {
-                const typeName = typeSlot.type.name;
-                const typeIcon = getTypeIcon(typeName);
-                const bgColor = typeColors[typeName] || "#ddd"; 
 
-                return typeIcon ? (
-                  <div
-                    key={typeName}
-                    className="w-8 h-8 flex items-center justify-center rounded-full"
-                    style={{ backgroundColor: bgColor }}
-                  >
-                    <img
-                      src={typeIcon}
-                      alt={typeName}
-                      title={typeName}
-                      className="w-5 h-5"
-                    />
-                  </div>
-                ) : (
-                  <span
-                    key={typeName}
-                    className="text-xs capitalize bg-gray-200 px-2 rounded"
-                  >
-                    {typeName}
-                  </span>
-                );
-              })}
-            </div>
-          </div>
-        ))}
+            return (
+              <div
+                onClick={() => {
+                  if (selectedPokemonID === pokemon.id) {
+                    setSelectedPokemonID(null); // Désélectionne si c'est le même
+                  } else {
+                    setSelectedPokemonID(pokemon.id); // Sinon sélectionne le nouveau
+                  }
+                }}
+                key={pokemon.id}
+                className={`rounded-xl shadow-lg px-4 py-6 cursor-pointer border-b-amber-950 ${bgColor} transform transition duration-300 hover:scale-105 hover:shadow-2xl`}
+                style={{ backgroundColor: bgColor }}
+
+              >
+
+                <img
+                  src={pokemon.sprites.other["official-artwork"].front_default}
+                  alt={pokemon.name}
+                  className="w-full h-32 object-contain mb-2"
+                />
+
+                <h2 className="text-xl font-bold capitalize text-center text-gray-800 dark:text-white">
+                  {pokemon.name}
+                </h2>
+
+                <div className="flex justify-center items-center mt-2 gap-2">
+                  {pokemon.types.map((typeSlot) => {
+                    const typeName = typeSlot.type.name;
+                    const typeIcon = getTypeIcon(typeName);
+                    const bgColor = typeColors[typeName] || "#ddd";
+
+                    return typeIcon ? (
+                      <div
+                        key={typeName}
+                        className="w-8 h-8 flex items-center justify-center rounded-full"
+                        style={{ backgroundColor: bgColor }}
+                      >
+                        <img
+                          src={typeIcon}
+                          alt={typeName}
+                          title={typeName}
+                          className="w-5 h-5"
+                        />
+                      </div>
+                    ) : (
+                      <span
+                        key={typeName}
+                        className="text-xs capitalize bg-gray-200 px-2 rounded"
+                      >
+                        {typeName}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            )
+          })}
+        </div>
       </div>
+      {selectedPokemonID && (
+        <div>
+          <button
+            onClick={() => setSelectedPokemonID(null)}
+            className="text-white z-10 w-8 fixed top-8 right-8 bg-gray-500 rounded-full p-1 shadow-md hover:bg-gray-400"
+          >
+            ×
+          </button>
+
+          <PokemonDetails key={selectedPokemonID} id={selectedPokemonID} />
+        </div>
+      )}
     </div>
+
   );
 }
