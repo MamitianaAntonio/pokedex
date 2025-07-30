@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import PokemonDetails from "./PokemonDetail";
 
-
-// Import all icons of types
 const typeIcons = import.meta.glob("../types/*.svg", { eager: true });
-
 
 export const typeColors = {
   normal: "#A8A77A",
@@ -41,6 +38,7 @@ export default function Pokemons() {
   const [pokemons, setPokemons] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedPokemonID, setSelectedPokemonID] = useState(null);
+
 
   useEffect(() => {
     fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
@@ -150,6 +148,5 @@ export default function Pokemons() {
         </div>
       )}
     </div>
-
   );
 }
