@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { getTypeColor } from "./Pokemons";
+import { typeColors } from "./Pokemons";
+// import { getTypeColor, typeColors } from "./Pokemons";
 
 function PokemonDetails({ id }) {
     const [pokemon, setPokemon] = useState(null);
@@ -40,7 +41,8 @@ function PokemonDetails({ id }) {
                         <div className="flex flex-row gap-4">
                             {pokemon.types.map((type) => {
                                 console.log(type.type.name)
-                                const bgColor = getTypeColor(type.type.name);
+                                
+                                const bgColor = typeColors[type.type.name];
                                 console.log(bgColor)
 
                                 return (
